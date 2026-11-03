@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>🏆 Gala Oficial WhatsApp: Sara Webb & Juan Casal</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="mode-slides">
+
+  <!-- Animated Spotlights & Stage Background -->
+  <div class="stage-bg"></div>
+  <div class="spotlight left"></div>
+  <div class="spotlight right"></div>
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Top Gala HUD & Live Scoreboard -->
+  <header class="gala-hud">
+    <div class="hud-brand">
+      <span class="live-dot"></span>
+      <span class="brand-text">🏆 GALA CASAL-WEBB 2026</span>
+    </div>
+
+    <div class="scoreboard">
+      <div class="score-pill sara">
+        <span>👸🏻 Sara</span>
+        <span class="score-val" id="score-sara">0</span>
+        <button class="score-btn" onclick="addScore('sara', 1)" title="Sumar punto a Sara">+</button>
+      </div>
+      <span style="color:rgba(255,255,255,0.25)">|</span>
+      <div class="score-pill juan">
+        <span>🤴🏻 Juan</span>
+        <span class="score-val" id="score-juan">0</span>
+        <button class="score-btn" onclick="addScore('juan', 1)" title="Sumar punto a Juan">+</button>
+      </div>
+    </div>
+
+    <div class="hud-actions">
+      <button class="hud-btn" id="btn-mode" onclick="togglePresentationMode()">🖥️ Modo Diapositivas</button>
+      <button class="hud-btn" id="btn-sound" onclick="toggleSound()">🔊 Sonido ON</button>
+      <button class="hud-btn" onclick="launchConfetti(100); playWin();">🎉 Confeti</button>
+    </div>
+  </header>
+
+  <div class="progress-track">
+    <div class="progress-fill" id="progress-fill"></div>
+  </div>
+
+  <!-- Main Stage Wrapper -->
+  <main class="stage-wrapper">
+
+    <!-- ================= SLIDE 1: GALA INAUGURAL ================= -->
+    <section class="slide-section active" id="slide-0">
+      <div class="slide-badge">🎬 SLIDE 1 DE 17 • GALA INAUGURAL & FICHA TÉCNICA</div>
+      <h1 class="slide-title">Del «Gilipollas» al «Te Amo Bichito»: El Show Oficial de Juan Casal & Sara Webb</h1>
+      <p class="slide-subtitle">
+        <strong>37.691 mensajes</strong> auditados entre el <b>27 de marzo de 2026 (03:18 AM)</b> y el <b>3 de noviembre de 2026 (12:16 PM)</b>. Una historia que empezó discutiendo a las 3 de la mañana si el mueble era un sofá o una cama y que acumula 148.075 palabras, 224 minutos de voz y 141 veces la palabra <em>"domir"</em> sin la R.
+      </p>
+
+      <div class="grid-4" style="margin-bottom: 20px;">
+        <div class="stat-card gold-card">
+          <span style="font-size:0.8rem; color:var(--text-muted);">VOLUMEN TOTAL</span>
+          <div class="big-num gold-text">37.691</div>
+          <p style="font-size:0.85rem;">Mensajes cruzados en 221 días (~170 al día)</p>
+        </div>
+        <div class="stat-card sara-card">
+          <span style="font-size:0.8rem; color:var(--text-muted);">👸🏻 SARA WEBB ("SARA WEBO")</span>
+          <div class="big-num sara-text">19.885</div>
+          <p style="font-size:0.85rem;"><b>52,8%</b> del chat • 77.478 palabras</p>
+        </div>
+        <div class="stat-card juan-card">
+          <span style="font-size:0.8rem; color:var(--text-muted);">🤴🏻 JUAN CASAL ("CABEZÓN")</span>
+          <div class="big-num juan-text">17.806</div>
+          <p style="font-size:0.85rem;"><b>47,2%</b> del chat • 70.597 palabras</p>
+        </div>
+        <div class="stat-card">
+          <span style="font-size:0.8rem; color:var(--text-muted);">🎙️ AUDIOS ACUMULADOS</span>
+          <div class="big-num" style="color:#a855f7;">693</div>
+          <p style="font-size:0.85rem;"><b>224 minutos</b> (3h 44m de podcast)</p>
+        </div>
+      </div>
+
+      <!-- Comparison Bars -->
+      <div class="stat-card" style="margin-bottom: 18px;">
+        <div class="vs-row">
+          <div class="vs-header">
+            <span class="sara-text">👸🏻 Sara: 77.478 palabras (4,79 pal/msg)</span>
+            <span>📚 Total Palabras (148.075)</span>
+            <span class="juan-text">🤴🏻 Juan: 70.597 palabras (4,59 pal/msg)</span>
+          </div>
+          <div class="vs-bar-track">
+            <div class="vs-bar-sara" style="width: 52.3%"></div>
+            <div class="vs-bar-juan" style="width: 47.7%"></div>
+          </div>
+        </div>
+
+        <div class="vs-row">
+          <div class="vs-header">
+            <span class="sara-text">👸🏻 Sara: 382 audios (111,7 min)</span>
+            <span>🎙️ Notas de Voz (Cantidad vs Duración)</span>
+            <span class="juan-text">🤴🏻 Juan: 311 audios (¡112,3 min!)</span>
+          </div>
+          <div class="vs-bar-track">
+            <div class="vs-bar-sara" style="width: 55.1%"></div>
+            <div class="vs-bar-juan" style="width: 44.9%"></div>
+          </div>
+        </div>
+
+        <div class="vs-row" style="margin-bottom:0;">
+          <div class="vs-header">
+            <span class="sara-text">👸🏻 Sara: 1.016 bombitas 💣 + 497 stickers</span>
+            <span>📸 Multimedia & Stickers</span>
+            <span class="juan-text">🤴🏻 Juan: 563 bombitas 💣 + 460 stickers</span>
+          </div>
+          <div class="vs-bar-track">
+            <div class="vs-bar-sara" style="width: 59.7%"></div>
+            <div class="vs-bar-juan" style="width: 40.3%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="stat-card sara-card">
+          <h4>📜 Récord de "Biblia" Individual</h4>
+          <p style="margin-top:6px; font-size:0.92rem;">
+            <b>👸🏻 Sara (1.325 palabras en un solo mensaje</b> el 27/08 a las 16:24) frente al récord de <b>🤴🏻 Juan (492 palabras</b> el 07/07 a las 00:32). Eso sí, también lidera los monosílabos de 1 palabra (3.571 vs 3.377).
+          </p>
+        </div>
+        <div class="stat-card gold-card">
+          <h4>🏆 El "Verborrea Award"</h4>
+          <p style="margin-top:6px; font-size:0.92rem;">
+            Ganadora al consumo de ancho de banda: <b>SARA WEBB</b> (+2.079 mensajes y 359.205 caracteres). Mención especial a <b>Juan</b>, que con 71 audios menos que Sara consigue hablar medio minuto más en total.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 2: CINE EN VIVO (SIMULADOR ANIMADO) ================= -->
+    <section class="slide-section" id="slide-1">
+      <div class="slide-badge">🎥 SLIDE 2 DE 17 • REPRODUCTOR ANIMADO EN TIEMPO REAL</div>
+      <h2 class="slide-title">El Cine del Chat: 5 Escenas Míticas Reconstruidas en Vivo</h2>
+      <p class="slide-subtitle">
+        Pulsa cualquiera de las 5 escenas reales de vuestra base de datos y observa cómo se reproduce mensaje a mensaje en la pantalla del iPhone con sonido y efectos en tiempo real.
+      </p>
+
+      <div class="phone-theater">
+        <div class="scene-selector">
+          <button class="scene-btn active" onclick="selectScene('origen', this)">
+            <span class="scene-title">🎬 1. El Origen a las 03:18 AM (27 Mar)</span>
+            <span class="scene-desc">El primer "Gilipollas", "Niña iPad", sofá vs. cama y el primer "domir" sin R.</span>
+          </button>
+          <button class="scene-btn" onclick="selectScene('metralleta', this)">
+            <span class="scene-title">🔫 2. La Metralleta de 47 Letras (23 Ago)</span>
+            <span class="scene-desc">Sara manda H-O-L-A-S-A-B-E-S-Q letra por letra y remata con "¿me has bloqueado?".</span>
+          </button>
+          <button class="scene-btn" onclick="selectScene('bipolar', this)">
+            <span class="scene-title">🎭 3. Grand Battement y la Policía (16 May)</span>
+            <span class="scene-desc">De "no me hables más y ya" a "¿cómo se llama lo de la policía?" en 7 minutos.</span>
+          </button>
+          <button class="scene-btn" onclick="selectScene('picante', this)">
+            <span class="scene-title">🔥 4. Fuego vs. Siesta & El Papa de Roma</span>
+            <span class="scene-desc">"Te quiero en mi cama" vs "me duermo la siesta" y el comentario del Papa.</span>
+          </button>
+          <button class="scene-btn" onclick="selectScene('inception', this)">
+            <span class="scene-title">🌀 5. INCEPTION: El Juego de HOY (3 Nov)</span>
+            <span class="scene-desc">Cuando Juan anunció este juego a las 11:06 AM y Sara contestó "okisss".</span>
+          </button>
+        </div>
+
+        <div class="iphone-mockup" id="iphone-mockup">
+          <div class="wa-topbar">
+            <div class="wa-contact">
+              <div class="wa-avatar">SW</div>
+              <div>
+                <div style="font-weight:800; font-size:0.95rem;">Sara Webb 💙 & Juan Casal</div>
+                <div class="wa-status" id="wa-live-status">En línea • Reproduciendo historial real...</div>
+              </div>
+            </div>
+            <span style="font-size:1.2rem;">📹 📞</span>
+          </div>
+
+          <div class="wa-screen" id="wa-live-screen"></div>
+
+          <div class="wa-controls">
+            <button class="btn-primary" onclick="playScene()">▶️ Repetir Escena</button>
+            <button class="hud-btn" id="btn-speed" onclick="toggleSceneSpeed()">⚡ Velocidad: 1x</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 3: VELOCIDAD Y PATRONES ================= -->
+    <section class="slide-section" id="slide-2">
+      <div class="slide-badge">⏱️ SLIDE 3 DE 17 • MÉTRICAS DE VELOCIDAD Y PATRONES DE INTERÉS</div>
+      <h2 class="slide-title">Pistolas Rápidas, Récords del «Visto» y Metralletas Humanas</h2>
+      <p class="slide-subtitle">
+        ¿Quién contesta antes de que el otro bloquee la pantalla y quién deja las preguntas flotando en el espacio exterior?
+      </p>
+
+      <div class="grid-4" style="margin-bottom:18px;">
+        <div class="stat-card sara-card">
+          <span style="font-size:0.8rem;">MEDIANA DE RESPUESTA SARA</span>
+          <div class="big-num sara-text">12 seg</div>
+          <p style="font-size:0.84rem;">Promedio: <b>5 min 33 seg</b> (en charla activa)</p>
+        </div>
+        <div class="stat-card juan-card">
+          <span style="font-size:0.8rem;">MEDIANA DE RESPUESTA JUAN</span>
+          <div class="big-num juan-text">15 seg</div>
+          <p style="font-size:0.84rem;">Promedio: <b>5 min 49 seg</b> (en charla activa)</p>
+        </div>
+        <div class="stat-card gold-card">
+          <span style="font-size:0.8rem;">LA RESUCITADORA (&gt;6h silencio)</span>
+          <div class="big-num gold-text">59,1%</div>
+          <p style="font-size:0.84rem;"><b>Sara rompió el hielo 123 veces</b> vs 85 de Juan</p>
+        </div>
+        <div class="stat-card">
+          <span style="font-size:0.8rem;">LA ENTERRADORA (&gt;6h silencio)</span>
+          <div class="big-num" style="color:#f43f5e;">65,9%</div>
+          <p style="font-size:0.84rem;"><b>Sara dejó la última palabra 137 veces</b> vs 71</p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="stat-card">
+          <h4 class="gold-text">👀 El Récord del "Visto" a una pregunta</h4>
+          <div class="chat-quote">
+            <div class="bubble juan"><span class="sender-tag">Juan (29/05 00:16)</span>Si no?</div>
+            <div class="wa-time-banner">⏳ 10 horas y 15 minutos de criogenización...</div>
+            <div class="bubble sara"><span class="sender-tag">Sara (29/05 10:31)</span>buenos días mi amor</div>
+          </div>
+          <p style="font-size:0.85rem; color:var(--text-muted);">
+            Juan tampoco se libra: el <b>27 de mayo a las 02:33</b> Sara preguntó <em>"lúa?"</em> y Juan contestó <b>9 horas y 3 minutos después</b> (11:37) con un épico: <em>"Ala tu que basto"</em>.
+          </p>
+        </div>
+
+        <div class="stat-card">
+          <h4 class="gold-text">🔫 Doble, Triple y Metralleta Texting</h4>
+          <ul style="list-style:none; margin-top:10px; line-height:1.9; font-size:0.94rem;">
+            <li>🔸 <b>Ráfagas de 2+ mensajes seguidos:</b> Sara <b>4.946</b> vs Juan <b>4.775</b></li>
+            <li>🔸 <b>Ráfagas de 5+ mensajes seguidos:</b> Sara <b>808</b> vs Juan <b>509</b></li>
+            <li>🔸 <b>Ráfagas de 10+ mensajes seguidos:</b> Sara <b>83</b> vs Juan <b>42</b></li>
+            <li>🏆 <b>Récord Histórico:</b> <b>47 mensajes seguidos de Sara</b> (23/08 a las 15:41) frente a <b>28 seguidos de Juan</b> (13/07 a las 00:13 mandando 23 fotos/vídeos del tirón + <em>"Ya estoy en casaaaa / Sara? / Oye / Estas bien?"</em>).</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 4: CRONOBIOLOGÍA ================= -->
+    <section class="slide-section" id="slide-3">
+      <div class="slide-badge">🌙 SLIDE 4 DE 17 • CRONOBIOLOGÍA (DÍA VS. NOCHE)</div>
+      <h2 class="slide-title">Vampiros de las 3:00 AM vs. Despertadores Humanos</h2>
+      <p class="slide-subtitle">
+        Habéis escrito casi el doble de mensajes entre las 00:00 y las 06:00 de la madrugada (<b>8.332</b>) que por las mañanas de 06:00 a 12:00 (<b>4.453</b>). ¡Pulsa cualquier barra horaria para inspeccionarla!
+      </p>
+
+      <div id="hour-detail" class="stat-card gold-card" style="padding:12px 18px; margin-bottom:12px; font-size:0.92rem;">
+        👆 <strong>Pulsa sobre cualquier hora del gráfico inferior</strong> para ver cuántos mensajes habéis mandado en esa franja exacta.
+      </div>
+
+      <div class="hourly-chart" id="hourly-chart"></div>
+
+      <div class="grid-3" style="margin-top:24px;">
+        <div class="stat-card sara-card">
+          <h4>🦉 La Búho Nocturna (00h–06h)</h4>
+          <div class="big-num sara-text">4.591 msgs</div>
+          <p style="font-size:0.86rem;">Sara gana la madrugada frente a los <b>3.741 de Juan</b>. Entre las <b>03:00 y las 04:00 AM</b> habéis mandado <b>1.868 mensajes</b> (1.027 Sara y 841 Juan).</p>
+        </div>
+        <div class="stat-card juan-card">
+          <h4>☀️ Hora Punta Diurna</h4>
+          <div class="big-num juan-text">14h vs 16h</div>
+          <p style="font-size:0.86rem;">El pico mundial de Sara es a las <b>14:00h (1.307 msgs)</b> y el de Juan a las <b>16:00h (1.179 msgs)</b>. A las 06:00 AM solo hay 88 mensajes en 7 meses.</p>
+        </div>
+        <div class="stat-card gold-card">
+          <h4>⏰ El Despertador Humano</h4>
+          <div class="big-num gold-text">113 a 92</div>
+          <p style="font-size:0.86rem;"><b>Sara</b> da los primeros buenos días el <b>55,1% de las mañanas (113 días)</b> frente a <b>92 días de Juan (44,9%)</b>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 5: TERMÓMETRO DEL CARIÑO ================= -->
+    <section class="slide-section" id="slide-4">
+      <div class="slide-badge">❤️ SLIDE 5 DE 17 • EL TERMÓMETRO DEL CARIÑO & LENGUAJE DEL AFECTO</div>
+      <h2 class="slide-title">Algodón de Azúcar vs. El Tipo Duro que se Derritió</h2>
+      <p class="slide-subtitle">
+        Conteo forense de cada muestra de afecto y qué ocurre el 71,5% de las veces que uno dice "Te quiero" y el otro cambia de tema.
+      </p>
+
+      <div class="grid-4" style="margin-bottom:18px;">
+        <div class="stat-card sara-card">
+          <span>"AMOR" / "MI AMOR"</span>
+          <div class="big-num sara-text">393 vs 309</div>
+          <p style="font-size:0.82rem;">702 veces en total • Gana Sara</p>
+        </div>
+        <div class="stat-card sara-card">
+          <span>"TE QUIERO" (PURO)</span>
+          <div class="big-num sara-text">211 vs 101</div>
+          <p style="font-size:0.82rem;">Sara lo dice más del doble</p>
+        </div>
+        <div class="stat-card sara-card">
+          <span>"TE AMO"</span>
+          <div class="big-num sara-text">44 vs 16</div>
+          <p style="font-size:0.82rem;">Especialidad de la casa con 💙</p>
+        </div>
+        <div class="stat-card juan-card">
+          <span>"SARITA" & "TE ECHO DE MENOS"</span>
+          <div class="big-num juan-text">30 & 7</div>
+          <p style="font-size:0.82rem;">Juan gana en "Sarita" (30) y "Te echo de menos" (7 a 1)</p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="stat-card">
+          <h4 class="gold-text">🧊 Del "No tengo cojones" al "Mi Bichitoo"</h4>
+          <div class="chat-quote">
+            <div class="bubble sara"><span class="sender-tag">Sara (23/04 01:11 AM)</span>te quiero un poquito gordi</div>
+            <div class="bubble juan"><span class="sender-tag">Juan (23/04 01:12 AM)</span>no tengo cojones a decirlo todavia<br>Peroes fuerte lo q siento por ti</div>
+          </div>
+          <p style="font-size:0.86rem; color:var(--text-muted);">
+            Spoiler: pocos días después Juan ya estaba llamándola <em>"mi amor"</em> (309 veces), <em>"mi niña"</em> (89 veces), <em>"bebé"</em> (73 veces) y <em>"bichito"</em>.
+          </p>
+        </div>
+
+        <div class="stat-card">
+          <h4 class="gold-text">🔄 Ratio de Reciprocidad: ¡28,5%!</h4>
+          <p style="font-size:0.86rem; margin-bottom:8px;">
+            Cuando uno suelta un <em>"Te quiero"</em>, solo recibe otro <em>"Te quiero / Y yo"</em> directo el 28,5% de las veces. Mirad las mejores respuestas reales del otro 71,5%:
+          </p>
+          <div class="chat-quote">
+            <div class="bubble juan"><span class="sender-tag">Juan (31/05 20:58)</span>Te quiero</div>
+            <div class="bubble sara"><span class="sender-tag">Sara (31/05 20:59)</span>dale</div>
+          </div>
+          <div class="chat-quote">
+            <div class="bubble juan"><span class="sender-tag">Juan (05/05 18:52)</span>Yo tambien te quiero mi amor</div>
+            <div class="bubble sara"><span class="sender-tag">Sara (05/05 18:53)</span>hoy vas a domir bien eh<br>bro mira</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 6: PIROPOS & PICANTÓMETRO ================= -->
+    <section class="slide-section" id="slide-5">
+      <div class="slide-badge">🔥 SLIDE 6 DE 17 • EL PIROPOS & PICANTÓMETRO (ZONA CALIENTE)</div>
+      <h2 class="slide-title">Cañas Lanzadas, Cero Filtros y el Factor Siesta</h2>
+      <p class="slide-subtitle">
+        ¿Quién tira más la caña y quién mete comentarios de dos rombos a las dos de la tarde?
+      </p>
+
+      <div class="grid-2" style="margin-bottom:18px;">
+        <div class="stat-card sara-card">
+          <h4>🎣 Tiracañas Oficial (Halagos y Piropos)</h4>
+          <div class="big-num"><span class="sara-text">52,5% Sara</span> vs <span class="juan-text">47,5% Juan</span></div>
+          <p style="font-size:0.88rem;">73 piropos directos de Sara (<em>"mi noviooooooo que guapo"</em>, <em>"oye eres muy guapo tú"</em>) frente a 66 de Juan (<em>"Que pibon"</em>, <em>"Como eres tan monaaa eres preciosa y un bombon"</em>). *(Sin contar cuando Juan se piropea a sí mismo: «Pero que guapo soy» el 16/05)*.</p>
+        </div>
+        <div class="stat-card gold-card">
+          <h4>🌶️ El Más Picante / Sin Filtro</h4>
+          <div class="big-num"><span class="sara-text">57% Sara (151)</span> vs <span class="juan-text">43% Juan (118)</span></div>
+          <p style="font-size:0.88rem;">Sara dispara a bocajarro a plena luz del día (<em>"en esa cama te he follado"</em> a las 14:35, <em>"tengo ya la marca en el culo"</em> a las 15:29, <em>"no sabes lo que te deseo ahora miso"</em>). Juan ataca a las 3:38 AM: <em>"eres un diablo escondido en ese cuerpo de princesa / Me pones demasiado"</em>.</p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="stat-card">
+          <h4>🧯 Reacción 1: Pasión vs. Siesta Española</h4>
+          <div class="chat-quote">
+            <div class="bubble juan"><span class="sender-tag">Juan (18/04 02:27 AM)</span>Te quiero en mi cama<br>Encima mio</div>
+            <div class="bubble sara"><span class="sender-tag">Sara (18/04 02:28 AM)</span>mañna me duero la siesta contigo<br>tanto me echas de menos ??</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <h4>⛪ Reacción 2: Piropos en el Vaticano</h4>
+          <div class="chat-quote">
+            <div class="bubble sara"><span class="sender-tag">Sara (06/06 10:29 AM)</span>mi noviooooooo que guapo</div>
+            <div class="bubble juan"><span class="sender-tag">Juan (06/06 10:29 AM)</span>Habran ido todos a ver al papa digo yo<br>Jajajajajaja</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 7: LA MONTAÑA RUSA ================= -->
+    <section class="slide-section" id="slide-6">
+      <div class="slide-badge">📉 SLIDE 7 DE 17 • LA MONTAÑA RUSA (EVOLUCIÓN TEMPORAL)</div>
+      <h2 class="slide-title">De los 7.705 Mensajes de Mayo a la Nueva Temporada</h2>
+      <p class="slide-subtitle">
+        Radiografía mes a mes de vuestra intensidad digital desde marzo hasta noviembre de 2026.
+      </p>
+
+      <div class="stat-card" style="margin-bottom:18px; overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse; font-size:0.9rem; text-align:left;">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border-glass); color:var(--gold);">
+              <th style="padding:10px;">Mes</th>
+              <th style="padding:10px;">Total</th>
+              <th style="padding:10px;">👸🏻 Sara</th>
+              <th style="padding:10px;">🤴🏻 Juan</th>
+              <th style="padding:10px;">Clima del Mes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:8px;"><b>Marzo</b> (5 días)</td><td>264</td><td>153 (58,0%)</td><td>111 (42,0%)</td><td>🌱 El Chispazo de las 3:18 AM</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:8px;"><b>Abril</b></td><td><b>7.078</b></td><td>3.533 (49,9%)</td><td>3.545 (50,1%)</td><td>🚀 Despegue + Récord diario (692 msgs el 23/04)</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05); background:rgba(245,197,66,0.1);"><td style="padding:8px;"><b>Mayo 🏆</b></td><td><b>7.705</b></td><td>4.012 (52,1%)</td><td>3.693 (47,9%)</td><td>🌕 <b>LA ÉPOCA DORADA</b> (248 mensajes al día)</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:8px;"><b>Junio</b></td><td>2.746</td><td>1.401 (51,0%)</td><td>1.345 (49,0%)</td><td>🏖️ Exámenes y tregua veraniega</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:8px;"><b>Julio</b></td><td><b>6.246</b></td><td>3.321 (53,2%)</td><td>2.925 (46,8%)</td><td>🔥 Segunda Ola de Verano y Biblias</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:8px;"><b>Agosto</b></td><td><b>6.113</b></td><td>3.328 (54,4%)</td><td>2.785 (45,6%)</td><td>⚡ Alta tensión + Récord de 47 letras seguidas</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:8px;"><b>Septiembre</b></td><td>3.874</td><td>2.131 (55,0%)</td><td>1.743 (45,0%)</td><td>🍂 Turbulencias y Cumpleaños de Sara (29/09)</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:8px;"><b>Octubre</b></td><td>3.216</td><td>1.784 (55,5%)</td><td>1.432 (44,5%)</td><td>🧊 La Era Glacial (silencios de 59 horas)</td></tr>
+            <tr><td style="padding:8px;"><b>Noviembre</b> (3 días)</td><td>449</td><td>222 (49,4%)</td><td>227 (50,6%)</td><td>🎉 "Sara webo", autobús al Zoco y esta Gala</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="grid-3">
+        <div class="stat-card gold-card">
+          <h4>🌕 Top 3 Días Más Intensos</h4>
+          <p style="font-size:0.88rem; margin-top:6px;">
+            1️⃣ <b>23 de abril: 692 mensajes</b><br>
+            2️⃣ <b>25 de abril: 628 mensajes</b><br>
+            3️⃣ <b>17 de agosto: 581 mensajes</b>
+          </p>
+        </div>
+        <div class="stat-card">
+          <h4>🧊 El Gran Apagón</h4>
+          <p style="font-size:0.88rem; margin-top:6px;">
+            Dos silencios clavados de <b>59 horas</b>: del 26 al 29 de septiembre (roto por Juan felicitando a Sarita) y del 20 al 22 de octubre (roto por Sara diciendo <em>"juan"</em>).
+          </p>
+        </div>
+        <div class="stat-card sara-card">
+          <h4>🐎 ¿Quién tiró del carro?</h4>
+          <p style="font-size:0.88rem; margin-top:6px;">
+            En abril y noviembre vais al <b>50/50 exacto</b>. Entre julio y octubre, <b>Sara tiró más del carro numérico</b> llegando al 55,5% de los mensajes.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 8: EL TOXICÓMETRO AMISTOSO ================= -->
+    <section class="slide-section" id="slide-7">
+      <div class="slide-badge">🚩 SLIDE 8 DE 17 • EL "TOXICÓMETRO" AMISTOSO</div>
+      <h2 class="slide-title">La Reina del «OK» contra El Emperador del «VALE 👍»</h2>
+      <p class="slide-subtitle">
+        Interrogaciones múltiples, gritos en mayúsculas y el duelo mundial de respuestas cortantes.
+      </p>
+
+      <div class="grid-3" style="margin-bottom:18px;">
+        <div class="stat-card sara-card">
+          <span>ATAQUES DE INTERROGACIÓN (???)</span>
+          <div class="big-num sara-text">226 vs 6</div>
+          <p style="font-size:0.85rem;">Sara gana <b>37 a 1</b> en poner <em>"???"</em> cuando Juan tarda más de 120 segundos en respirar.</p>
+        </div>
+        <div class="stat-card sara-card">
+          <span>GRITOS EN MAYÚSCULAS</span>
+          <div class="big-num sara-text">138 vs 61</div>
+          <p style="font-size:0.85rem;">Sara duplica en mensajes enteros con el Bloq Mayús activado.</p>
+        </div>
+        <div class="stat-card">
+          <span>"SIEMPRE" vs "NUNCA"</span>
+          <div class="big-num gold-text">88 / 42</div>
+          <p style="font-size:0.85rem;">Sara gana en <em>"siempre"</em> (88 a 70) y Juan gana en <em>"nunca"</em> (42 a 35).</p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="stat-card sara-card">
+          <h4>👑 La Reina del "OK / OKIS" (Sara)</h4>
+          <p style="font-size:0.9rem; margin-top:8px; line-height:1.7;">
+            • <b>"ok / okey" a secas:</b> <b>297 veces Sara</b> vs 55 Juan.<br>
+            • <b>"okis / okisss":</b> <b>127 veces Sara</b> vs 0 Juan.<br>
+            • <b>"ya" seco:</b> <b>40 veces Sara</b> vs 23 Juan.<br>
+            • <b>"bueno" seco:</b> <b>26 veces Sara</b> vs 7 Juan.
+          </p>
+        </div>
+        <div class="stat-card juan-card">
+          <h4>🤴🏻 El Rey del "VALE" y del Pulgar 👍 (Juan)</h4>
+          <p style="font-size:0.9rem; margin-top:8px; line-height:1.7;">
+            • <b>"vale" a secas:</b> <b>237 veces Juan</b> vs 108 Sara.<br>
+            • <b>"valee" con doble E:</b> <b>115 veces Juan</b> vs 4 Sara.<br>
+            • <b>Emoji de padre pasivo-agresivo (👍 / 👌🏻):</b> <b>Juan 20 veces</b> vs Sara 1 vez.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 9: HUELLA DIGITAL ================= -->
+    <section class="slide-section" id="slide-8">
+      <div class="slide-badge">🔍 SLIDE 9 DE 17 • HUELLA DIGITAL (VOCABULARIO, EMOJIS Y RISAS)</div>
+      <h2 class="slide-title">El Grillo de Sara 🦗, el Surfero de Juan 🤙 y la Anatomía de la Risa</h2>
+      <p class="slide-subtitle">
+        Si os secuestran el móvil, basta una sola palabra para saber quién está detrás del teclado.
+      </p>
+
+      <div class="grid-2" style="margin-bottom:18px;">
+        <div class="stat-card sara-card">
+          <h4>👸🏻 Top 5 Emojis & Muletillas de Sara</h4>
+          <div style="font-size:1.8rem; margin:10px 0;">❤️ (110) • 💙 (75) • 🦗 (7) • 🫠 (6) • 😉 (5)</div>
+          <p style="font-size:0.9rem; line-height:1.7;">
+            <b>Top Muletillas:</b><br>
+            1️⃣ <b>"juan" (657 veces)</b> — Lo usa como signo de puntuación.<br>
+            2️⃣ <b>"tlj" (154 veces)</b> & <b>"esq" (240 veces)</b>.<br>
+            3️⃣ <b>"bro" (142 veces)</b>, <b>"okis" (127)</b> y <b>"mazo" (117)</b>.
+          </p>
+        </div>
+
+        <div class="stat-card juan-card">
+          <h4>🤴🏻 Top 5 Emojis & Muletillas de Juan</h4>
+          <div style="font-size:1.8rem; margin:10px 0;">🤣 (79) • 💙 (69) • ❤️ (68) • 😁 (47) • 🤙 (31)</div>
+          <p style="font-size:0.9rem; line-height:1.7;">
+            <b>Top Muletillas:</b><br>
+            1️⃣ <b>"casa" (351 veces)</b> & <b>"sara / sarita" (300 veces)</b>.<br>
+            2️⃣ <b>"valee" (115 veces)</b> & <b>"bueenos" (34 veces)</b>.<br>
+            3️⃣ <b>"tmb" (82)</b>, <b>"min" (81)</b>, <b>"sisi" (57)</b> y <b>"perfe" (50)</b>.
+          </p>
+        </div>
+      </div>
+
+      <div class="stat-card gold-card">
+        <h4>😂 La Anatomía de la Risa: ¿Quién se ríe más de las bromas del otro?</h4>
+        <div class="vs-row" style="margin-top:10px; margin-bottom:4px;">
+          <div class="vs-header">
+            <span class="sara-text">👸🏻 Sara: 415 carcajadas (36,7%) — Sello: "PUAJAJJAJA"</span>
+            <span>Total Risas en Texto: 1.130</span>
+            <span class="juan-text">🤴🏻 Juan: 715 carcajadas (63,3%) — Sello: "Jajajajajaja 🤣🤣"</span>
+          </div>
+          <div class="vs-bar-track">
+            <div class="vs-bar-sara" style="width: 36.7%"></div>
+            <div class="vs-bar-juan" style="width: 63.3%"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 10 (EXTRA): EXPEDIENTE X MULTIMEDIA ================= -->
+    <section class="slide-section" id="slide-9">
+      <div class="slide-badge">🕵️‍♀️ SLIDE 10 DE 17 (BONUS) • EXPEDIENTE X: BOMBITAS 💣 Y MENSAJES BORRADOS 🗑️</div>
+      <h2 class="slide-title">Ni el CNI Destruye Tantas Pruebas como Este Chat</h2>
+      <p class="slide-subtitle">
+        Dos estadísticas secretas extraídas directamente de las tablas internas de <code>ChatStorage.sqlite</code>.
+      </p>
+
+      <div class="grid-2">
+        <div class="stat-card sara-card">
+          <h4>💣 Adicción a la "Visualización Única" (1.579 archivos)</h4>
+          <div class="big-num sara-text">1.016 vs 563</div>
+          <p style="font-size:0.92rem; line-height:1.6;">
+            • <b>Sara ha enviado 701 fotos bomba y 315 vídeos bomba</b> (¡más de 4,5 archivos autodestruibles al día!).<br>
+            • <b>Juan ha enviado 305 fotos bomba y 258 vídeos bomba</b>.<br>
+            • Hasta para enseñar un papel de un seguro o la parada del autobús ponéis el temporizador de autodestrucción de <em>Misión Imposible</em>.
+          </p>
+        </div>
+
+        <div class="stat-card gold-card">
+          <h4>🗑️ El Dedo Eliminador (786 mensajes borrados)</h4>
+          <div class="big-num gold-text">590 vs 196</div>
+          <p style="font-size:0.92rem; line-height:1.6;">
+            • <b>Sara ha eliminado 590 mensajes (el 75,1% del total)</b> frente a 196 de Juan.<br>
+            • Sara borra exactamente <b>3 mensajes por cada 1 que borra Juan</b>.<br>
+            • Hoy mismo (3 de noviembre entre las 11:35 y las 12:00) Sara ya ha eliminado 2 mensajes más para no perder la costumbre.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 11 (EXTRA): DICCIONARIO RAE SARA-JUAN ================= -->
+    <section class="slide-section" id="slide-10">
+      <div class="slide-badge">📖 SLIDE 11 DE 17 (BONUS) • DICCIONARIO INTERACTIVO RAE CASAL-WEBB</div>
+      <h2 class="slide-title">El Misterio de las 141 Veces «Domir» sin R y Otros Dialectos</h2>
+      <p class="slide-subtitle">
+        Pasa el ratón o toca cada término oficial de vuestro dialecto privado:
+      </p>
+
+      <div class="dict-grid">
+        <div class="dict-item">
+          <h4 class="sara-text">"domir" (141 veces)</h4>
+          <p style="font-size:0.84rem; margin-top:4px;">Verbo oficial de Sara desde el 27 de marzo a las 03:26 AM. Su teclado se comió la letra «R» hace 7 meses y jamás la devolvió.</p>
+        </div>
+        <div class="dict-item">
+          <h4 class="sara-text">"estiy" (68 veces)</h4>
+          <p style="font-size:0.84rem; margin-top:4px;">Variante de <em>"estoy"</em> cuando Sara tiene sueño, hambre o dolor: <em>"estiy muerta"</em>, <em>"no estiy agresiva"</em>.</p>
+        </div>
+        <div class="dict-item">
+          <h4 class="sara-text">"vald / valefeee" (33 veces)</h4>
+          <p style="font-size:0.84rem; margin-top:4px;">Cuando Sara intenta escribir <em>"vale"</em> andando por la calle a 120 km/h.</p>
+        </div>
+        <div class="dict-item">
+          <h4 class="juan-text">"Sara webo" & "Panadera"</h4>
+          <p style="font-size:0.84rem; margin-top:4px;">Apodos de alta ingeniería poética creados por Juan cuando quiere picarla.</p>
+        </div>
+        <div class="dict-item">
+          <h4 class="sara-text">"Cabezón" & "Juan Casal"</h4>
+          <p style="font-size:0.84rem; margin-top:4px;">Si te llama <em>"cabezón"</em> todo va bien; si escribe <em>"juan casal"</em> con nombre y apellido, busca refugio nuclear.</p>
+        </div>
+        <div class="dict-item">
+          <h4 class="gold-text">"Bichito" 💙</h4>
+          <p style="font-size:0.84rem; margin-top:4px;">El mote que desactiva cualquier discusión al instante, usado por ambos en los momentos más tiernos.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 12: MINIJUEGO 1 - JUICIO POR JURADO ================= -->
+    <section class="slide-section" id="slide-11">
+      <div class="slide-badge">🎲 SLIDE 12 DE 17 • MINIJUEGO 1: JUICIO POR JURADO</div>
+      <h2 class="slide-title">¿Quién es Más Culpable? ¡Votad antes de dictar sentencia!</h2>
+      <p class="slide-subtitle">
+        Señalad quién creéis que es culpable en cada uno de los 6 cargos y pulsad <b>«🔨 Dictar Sentencia»</b> para descubrir la prueba real del sumario.
+      </p>
+
+      <div class="grid-2">
+        <!-- Caso 1 -->
+        <div class="game-card">
+          <h4>🎙️ Cargo 1: El Podcast de Madrugada (&gt;3 minutos en un solo audio)</h4>
+          <p style="font-size:0.86rem; color:var(--text-muted); margin-top:4px;">¿Quién tiene el récord del audio individual más largo de todo el chat?</p>
+          <div class="vote-group">
+            <button class="vote-btn" onclick="revealVerdict(1)">🔨 ¡Dictar Sentencia Oficial!</button>
+          </div>
+          <div class="verdict-box" id="verdict-1">
+            <strong>⚖️ ¡CULPABLE: JUAN CASAL!</strong><br>
+            El <b>19 de agosto a las 04:22:55 AM</b> grabó un monólogo de <b>181 segundos (3 min y 1 seg)</b>. *(Eso sí: Sara tiene el récord de metralleta con 8 audios seguidos el 21 de abril a las 20:07)*.
+          </div>
+        </div>
+
+        <!-- Caso 2 -->
+        <div class="game-card">
+          <h4>😴 Cargo 2: "Me acabo de despertar" a horas ilegales</h4>
+          <p style="font-size:0.86rem; color:var(--text-muted); margin-top:4px;">¿Quién confiesa más veces haberse quedado frito/a o despertarse a la hora de merendar?</p>
+          <div class="vote-group">
+            <button class="vote-btn" onclick="revealVerdict(2)">🔨 ¡Dictar Sentencia Oficial!</button>
+          </div>
+          <div class="verdict-box" id="verdict-2">
+            <strong>⚖️ ¡CULPABLE: SARA WEBB (15 a 9)!</strong><br>
+            15 confesiones literales de <em>"me acabo de despertar"</em>, incluyendo despertares épicos a las <b>13:47</b>, a las <b>18:34</b> y a las <b>20:27 de la tarde</b> (27/04).
+          </div>
+        </div>
+
+        <!-- Caso 3 -->
+        <div class="game-card">
+          <h4>🍿 Cargo 3: "Te tengo que contar una cosa / No sabes lo que pasó"</h4>
+          <p style="font-size:0.86rem; color:var(--text-muted); margin-top:4px;">¿Quién lanza más bombas de humo de chisme para dejar al otro mordiendo las uñas?</p>
+          <div class="vote-group">
+            <button class="vote-btn" onclick="revealVerdict(3)">🔨 ¡Dictar Sentencia Oficial!</button>
+          </div>
+          <div class="verdict-box" id="verdict-3">
+            <strong>⚖️ ¡CULPABLE: SARA WEBB (8 a 1)!</strong><br>
+            Reina del suspense con perlas como <em>"sí que te tengo que contar una caos"</em> (01/08 a las 00:25 AM) o <em>"te tengo que contar una cosa"</em> (30/08 a las 13:30).
+          </div>
+        </div>
+
+        <!-- Caso 4 -->
+        <div class="game-card">
+          <h4>🙈 Cargo 4: Responder "a okey" a un texto sentimental</h4>
+          <p style="font-size:0.86rem; color:var(--text-muted); margin-top:4px;">¿Quién respondió con un "a okey / a las 4 o así" a dos párrafos abriéndose el corazón?</p>
+          <div class="vote-group">
+            <button class="vote-btn" onclick="revealVerdict(4)">🔨 ¡Dictar Sentencia Oficial!</button>
+          </div>
+          <div class="verdict-box" id="verdict-4">
+            <strong>⚖️ ¡CULPABLE: SARA WEBB!</strong><br>
+            El <b>8 de julio a las 14:14</b>, tras un mensaje precioso de Juan de 115 palabras sobre cuánto valoraba su esfuerzo, Sara contestó: <code>"a okey / por / a las 4 o así"</code>.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 13: MINIJUEGO 2 - TRIVIA A CIEGAS ================= -->
+    <section class="slide-section" id="slide-12">
+      <div class="slide-badge">🕵️ SLIDE 13 DE 17 • MINIJUEGO 2: TRIVIA A CIEGAS</div>
+      <h2 class="slide-title">«¿Quién Soltó Esta Perla?» (8 Frases Literales)</h2>
+      <p class="slide-subtitle">
+        Leed cada frase en voz alta y pulsad quién creéis que fue el autor. ¡Si acertáis suena campana de premio!
+      </p>
+
+      <div class="grid-2">
+        <!-- Perla 1 -->
+        <div class="game-card" id="trivia-card-1">
+          <p style="font-size:1rem; font-weight:700;">1. «En plan me duele y tal pero no me muero como para ir a un hospital. Mariconadas las justas»</p>
+          <div class="vote-group">
+            <button class="vote-btn sara-vote" onclick="answerTrivia(1, 'sara', 'juan', this)">👸🏻 Fue Sara</button>
+            <button class="vote-btn juan-vote" onclick="answerTrivia(1, 'juan', 'juan', this)">🤴🏻 Fue Juan</button>
+          </div>
+          <div class="verdict-box" id="trivia-res-1">
+            <div class="trivia-outcome" style="font-weight:800; margin-bottom:4px;"></div>
+            <b>Autor: 🤴🏻 JUAN</b> (22/04/2026 a las 23:42) — Haciéndose el indestructible para no pisar urgencias.
+          </div>
+        </div>
+
+        <!-- Perla 2 -->
+        <div class="game-card" id="trivia-card-2">
+          <p style="font-size:1rem; font-weight:700;">2. «sabes lo que es un gran batteman? no verdad? ps a callar»</p>
+          <div class="vote-group">
+            <button class="vote-btn sara-vote" onclick="answerTrivia(2, 'sara', 'sara', this)">👸🏻 Fue Sara</button>
+            <button class="vote-btn juan-vote" onclick="answerTrivia(2, 'juan', 'sara', this)">🤴🏻 Fue Juan</button>
+          </div>
+          <div class="verdict-box" id="trivia-res-2">
+            <div class="trivia-outcome" style="font-weight:800; margin-bottom:4px;"></div>
+            <b>Autora: 👸🏻 SARA</b> (16/05/2026 a las 20:43) — Humillación con vocabulario de ballet tras el pique de los karts.
+          </div>
+        </div>
+
+        <!-- Perla 3 -->
+        <div class="game-card" id="trivia-card-3">
+          <p style="font-size:1rem; font-weight:700;">3. «Ya pero como no soy un gato pues yo no muero»</p>
+          <div class="vote-group">
+            <button class="vote-btn sara-vote" onclick="answerTrivia(3, 'sara', 'juan', this)">👸🏻 Fue Sara</button>
+            <button class="vote-btn juan-vote" onclick="answerTrivia(3, 'juan', 'juan', this)">🤴🏻 Fue Juan</button>
+          </div>
+          <div class="verdict-box" id="trivia-res-3">
+            <div class="trivia-outcome" style="font-weight:800; margin-bottom:4px;"></div>
+            <b>Autor: 🤴🏻 JUAN</b> (18/05/2026 a las 10:08) — Ciencia biológica aplicada a primera hora de la mañana.
+          </div>
+        </div>
+
+        <!-- Perla 4 -->
+        <div class="game-card" id="trivia-card-4">
+          <p style="font-size:1rem; font-weight:700;">4. «no quiero tener un novio que se puede matar con una puta moto sabes»</p>
+          <div class="vote-group">
+            <button class="vote-btn sara-vote" onclick="answerTrivia(4, 'sara', 'sara', this)">👸🏻 Fue Sara</button>
+            <button class="vote-btn juan-vote" onclick="answerTrivia(4, 'juan', 'sara', this)">🤴🏻 Fue Juan</button>
+          </div>
+          <div class="verdict-box" id="trivia-res-4">
+            <div class="trivia-outcome" style="font-weight:800; margin-bottom:4px;"></div>
+            <b>Autora: 👸🏻 SARA</b> (22/05/2026 a las 11:58) — Seguido de un tierno: <em>"me pillas o no me pillas cariño"</em>.
+          </div>
+        </div>
+
+        <!-- Perla 5 -->
+        <div class="game-card" id="trivia-card-5">
+          <p style="font-size:1rem; font-weight:700;">5. «Yo voy a llevar un traje con sangre. Peor que yo no vas a ir»</p>
+          <div class="vote-group">
+            <button class="vote-btn sara-vote" onclick="answerTrivia(5, 'sara', 'juan', this)">👸🏻 Fue Sara</button>
+            <button class="vote-btn juan-vote" onclick="answerTrivia(5, 'juan', 'juan', this)">🤴🏻 Fue Juan</button>
+          </div>
+          <div class="verdict-box" id="trivia-res-5">
+            <div class="trivia-outcome" style="font-weight:800; margin-bottom:4px;"></div>
+            <b>Autor: 🤴🏻 JUAN</b> (22/05/2026 a las 15:40) — Asesoría de imagen al estilo <em>Matanza de Texas</em>.
+          </div>
+        </div>
+
+        <!-- Perla 6 -->
+        <div class="game-card" id="trivia-card-6">
+          <p style="font-size:1rem; font-weight:700;">6. «te cortas el pelo para enamorar a la de las fiestas, así eres»</p>
+          <div class="vote-group">
+            <button class="vote-btn sara-vote" onclick="answerTrivia(6, 'sara', 'sara', this)">👸🏻 Fue Sara</button>
+            <button class="vote-btn juan-vote" onclick="answerTrivia(6, 'juan', 'sara', this)">🤴🏻 Fue Juan</button>
+          </div>
+          <div class="verdict-box" id="trivia-res-6">
+            <div class="trivia-outcome" style="font-weight:800; margin-bottom:4px;"></div>
+            <b>Autora: 👸🏻 SARA</b> (15/07/2026 a las 17:15) — Porque ir al peluquero en julio es claramente alta traición.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 14 (EXTRA): MÁS ALTO O MÁS BAJO ================= -->
+    <section class="slide-section" id="slide-13">
+      <div class="slide-badge">🔢 SLIDE 14 DE 17 (BONUS) • MINIJUEGO 3: APUESTAS A CIEGAS</div>
+      <h2 class="slide-title">¿Quién Conoce Mejor las Cifras del Chat?</h2>
+      <p class="slide-subtitle">
+        Escribid la apuesta de Sara y la apuesta de Juan en cada casilla. ¡El que se quede más cerca de la cifra real se lleva automáticamente +1 punto en el marcador!
+      </p>
+
+      <div class="grid-2">
+        <!-- Apuesta 1 -->
+        <div class="game-card">
+          <h4>1️⃣ ¿Cuántas veces exactas ha escrito Sara la palabra «Juan»?</h4>
+          <div style="display:flex; gap:10px; margin-top:10px;">
+            <input type="number" id="bet-sara-1" placeholder="Apuesta Sara" style="flex:1; padding:8px; border-radius:8px; border:1px solid var(--sara); background:#0b101d; color:#fff;" />
+            <input type="number" id="bet-juan-1" placeholder="Apuesta Juan" style="flex:1; padding:8px; border-radius:8px; border:1px solid var(--sara-blue); background:#0b101d; color:#fff;" />
+          </div>
+          <button class="btn-primary" style="margin-top:10px; width:100%; justify-content:center;" onclick="resolveBet(1, 657)">🎰 Revelar Cifra Oficial</button>
+          <div class="verdict-box" id="bet-res-1">
+            <div class="big-num gold-text" id="bet-num-1">0</div>
+            <div id="bet-win-1"></div>
+          </div>
+        </div>
+
+        <!-- Apuesta 2 -->
+        <div class="game-card">
+          <h4>2️⃣ ¿Cuántos mensajes os mandasteis el 23 de abril (vuestro récord en 1 día)?</h4>
+          <div style="display:flex; gap:10px; margin-top:10px;">
+            <input type="number" id="bet-sara-2" placeholder="Apuesta Sara" style="flex:1; padding:8px; border-radius:8px; border:1px solid var(--sara); background:#0b101d; color:#fff;" />
+            <input type="number" id="bet-juan-2" placeholder="Apuesta Juan" style="flex:1; padding:8px; border-radius:8px; border:1px solid var(--sara-blue); background:#0b101d; color:#fff;" />
+          </div>
+          <button class="btn-primary" style="margin-top:10px; width:100%; justify-content:center;" onclick="resolveBet(2, 692)">🎰 Revelar Cifra Oficial</button>
+          <div class="verdict-box" id="bet-res-2">
+            <div class="big-num gold-text" id="bet-num-2">0</div>
+            <div id="bet-win-2"></div>
+          </div>
+        </div>
+
+        <!-- Apuesta 3 -->
+        <div class="game-card">
+          <h4>3️⃣ ¿Cuántos minutos suman TODOS vuestros audios juntos?</h4>
+          <div style="display:flex; gap:10px; margin-top:10px;">
+            <input type="number" id="bet-sara-3" placeholder="Apuesta Sara" style="flex:1; padding:8px; border-radius:8px; border:1px solid var(--sara); background:#0b101d; color:#fff;" />
+            <input type="number" id="bet-juan-3" placeholder="Apuesta Juan" style="flex:1; padding:8px; border-radius:8px; border:1px solid var(--sara-blue); background:#0b101d; color:#fff;" />
+          </div>
+          <button class="btn-primary" style="margin-top:10px; width:100%; justify-content:center;" onclick="resolveBet(3, 224)">🎰 Revelar Cifra Oficial</button>
+          <div class="verdict-box" id="bet-res-3">
+            <div class="big-num gold-text" id="bet-num-3">0</div>
+            <div id="bet-win-3"></div>
+          </div>
+        </div>
+
+        <!-- Apuesta 4 -->
+        <div class="game-card">
+          <h4>4️⃣ ¿Cuántas veces aparece la palabra «casa» en el chat?</h4>
+          <div style="display:flex; gap:10px; margin-top:10px;">
+            <input type="number" id="bet-sara-4" placeholder="Apuesta Sara" style="flex:1; padding:8px; border-radius:8px; border:1px solid var(--sara); background:#0b101d; color:#fff;" />
+            <input type="number" id="bet-juan-4" placeholder="Apuesta Juan" style="flex:1; padding:8px; border-radius:8px; border:1px solid var(--sara-blue); background:#0b101d; color:#fff;" />
+          </div>
+          <button class="btn-primary" style="margin-top:10px; width:100%; justify-content:center;" onclick="resolveBet(4, 574)">🎰 Revelar Cifra Oficial</button>
+          <div class="verdict-box" id="bet-res-4">
+            <div class="big-num gold-text" id="bet-num-4">0</div>
+            <div id="bet-win-4"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 15: SI ESTE CHAT FUERA UNA PELÍCULA ================= -->
+    <section class="slide-section" id="slide-14">
+      <div class="slide-badge">⚡ SLIDE 15 DE 17 • MINIJUEGO 4: SI ESTE CHAT FUERA UNA PELÍCULA...</div>
+      <h2 class="slide-title">Cartelera Oficial: «Ocho Apellidos Cabezones (y una Siesta a las 3 AM)»</h2>
+      <p class="slide-subtitle">
+        Género: <b>Comedia Romántica de Acción Caótica con Tintes de Thriller Nocturno</b> (Dirigida a medias por Tarantino y Almodóvar).
+      </p>
+
+      <div class="grid-2" style="margin-bottom:18px;">
+        <div class="stat-card sara-card">
+          <h4>👸🏻 Arquetipo de Sara Webb</h4>
+          <h3 class="sara-text" style="margin:6px 0;">«La Reina del Huracán & El Grillo Azul 🦗💙»</h3>
+          <p style="font-size:0.9rem; line-height:1.6;">
+            Capaz de escribirte una carta de amor de 1.325 palabras que hace llorar a las piedras, mandarte 1.016 archivos autodestruibles del FBI, llamarte <em>"bro"</em> y <em>"cabezón"</em>, e irse a <em>"domir"</em> dejando 590 mensajes eliminados por el camino.
+          </p>
+        </div>
+
+        <div class="stat-card juan-card">
+          <h4>🤴🏻 Arquetipo de Juan Casal</h4>
+          <h3 class="juan-text" style="margin:6px 0;">«El Guardián del "Valee" & Filósofo de las 4 AM 🤙»</h3>
+          <p style="font-size:0.9rem; line-height:1.6;">
+            Se hace el tipo duro llamándote <em>"Gilipollas"</em>, <em>"Niña iPad"</em> y <em>"Sara webo"</em>, contesta con <code>🤙</code> y <code>"perfe"</code>, pero a las 04:22 AM te graba un podcast de 3 minutos y a mediodía te espera para recogerte en el Zoco y hacerte la comida.
+          </p>
+        </div>
+      </div>
+
+      <div class="stat-card gold-card">
+        <h4>🌀 El Giro de Guion del Año (Rompiendo la Cuarta Pared)</h4>
+        <p style="font-size:0.94rem; margin-top:6px; line-height:1.6;">
+          Hoy mismo, <b>3 de noviembre de 2026 a las 11:06 AM</b>, Juan escribió en el chat: <em>"Fua / Cacho idea acabo de tener / Lo voy a preparar ahora por la mañana / Y luego te lo enseño cuando estemos juntos / Es un juego sobre nosotros"</em>. Sara contestó <b>"okisss"</b> y a las 11:30 preguntó <b>"a ver el juego / q pasa???"</b>… sin saber que esos mismos mensajes ya estaban siendo procesados para aparecer dentro del juego que estáis viendo ahora mismo. ¡BOOOM! 💥
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 16: THE WHATSAPP GALA AWARDS ================= -->
+    <section class="slide-section" id="slide-15">
+      <div class="slide-badge">🏆 SLIDE 16 DE 17 • THE WHATSAPP GALA AWARDS (PREMIOS OFICIALES)</div>
+      <h2 class="slide-title">Entrega Oficial de los 5 Diplomas de Oro</h2>
+      <p class="slide-subtitle">
+        Pulsa el botón de Confeti de arriba mientras entregamos las estatuillas oficiales del historial:
+      </p>
+
+      <div class="grid-2" style="margin-bottom:14px;">
+        <div class="stat-card gold-card">
+          <h4>🎙️ 1. Premio "Podcast del Año"</h4>
+          <p style="font-size:0.9rem; margin-top:6px;">
+            <b>Ex aequo:</b> A <b>Juan Casal</b> por su monólogo de <b>181 segundos (3m 01s)</b> a las 04:22 AM del 19 de agosto, y a <b>Sara Webb</b> por su ráfaga de <b>202 segundos en 3 audios</b> (14/05) y sus <b>8 audios seguidos</b> (21/04).
+          </p>
+        </div>
+
+        <div class="stat-card sara-card">
+          <h4>🔥 2. Premio "Picaresco de Oro"</h4>
+          <p style="font-size:0.9rem; margin-top:6px;">
+            <b>Ganadora: Sara Webb</b> (08/06 a las 14:35:18) por soltar a plena hora de la siesta y sin anestesia: <em>"en esa cama te he follado"</em>. Accésit poético para Juan (15/07 03:38 AM): <em>"eres un diablo escondido en ese cuerpo de princesa"</em>.
+          </p>
+        </div>
+
+        <div class="stat-card sara-card">
+          <h4>🎭 3. Premio "Bipolaridad Digital"</h4>
+          <p style="font-size:0.9rem; margin-top:6px;">
+            <b>Ganadora: Sara Webb</b> (16/05 de 20:41 a 20:52): de <em>"que pringado bro / sabes lo que es un gran batteman / no me hables más y ya"</em> a preguntar 7 minutos después como si nada: <em>"cómo se llama lo de la policía / si están el la carretera"</em>.
+          </p>
+        </div>
+
+        <div class="stat-card juan-card">
+          <h4>👻 4. Premio "Visto Criminal" & 🧘🏻 5. "Paciencia Infinita"</h4>
+          <p style="font-size:0.9rem; margin-top:6px;">
+            • <b>Visto Criminal:</b> Sara respondiendo <em>"dale"</em> a un <em>"Te quiero"</em> (31/05).<br>
+            • <b>Paciencia Infinita:</b> Juan aguantando las 47 notificaciones letra a letra del 23/08 y Sara esperando tras las 23 fotos/vídeos seguidos de Juan a medianoche (13/07).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SLIDE 17: RULETA DE PENITENCIAS & VEREDICTO FINAL ================= -->
+    <section class="slide-section" id="slide-16">
+      <div class="slide-badge">🎯 SLIDE 17 DE 17 • GRAN FINAL: LA RULETA EN VIVO & VEREDICTO DEL PRESENTADOR</div>
+      <h2 class="slide-title">Veredicto Final & La Ruleta de Penitencias en Vivo</h2>
+      <p class="slide-subtitle">
+        <strong>Monólogo de Cierre del Presentador:</strong> Damas y caballeros, los datos fríos del servidor han dictado sentencia: <b>37.691 mensajes, 148.075 palabras, 224 minutos de voz y una mediana de respuesta de 12 y 15 segundos</b> demuestran que, por mucho que os llaméis <em>"cabezón"</em>, <em>"Sara webo"</em>, <em>"plebeya"</em> o <em>"bro"</em>, tenéis una adicción mutua de campeonato. Habéis pasado por récords de 692 mensajes al día, biblias de madrugada y tormentas de otoño, pero siempre acabáis volviendo al mismo sitio: a buscaros en el Zoco, a haceros la comida y a reíros juntos de vuestras propias locuras.
+      </p>
+
+      <div class="grid-2" style="align-items:center;">
+        <div class="roulette-wrap">
+          <div class="wheel-container">
+            <div class="wheel-pointer">🔻</div>
+            <canvas id="roulette-canvas" width="300" height="300"></canvas>
+          </div>
+          <button class="btn-primary" onclick="spinRoulette()" style="font-size:1.05rem; padding:12px 26px;">
+            🎡 ¡GIRAR LA RULETA DE PENITENCIAS!
+          </button>
+          <div class="verdict-box" id="roulette-result" style="width:100%; text-align:center;"></div>
+        </div>
+
+        <div class="stat-card gold-card">
+          <h3>💡 3 Mandamientos para la Nueva Temporada del Chat</h3>
+          <ol style="margin-top:12px; padding-left:20px; line-height:1.9; font-size:0.95rem;">
+            <li><b>Instaladle la letra «R» al teclado de Sara</b> para que después de 141 intentos pueda por fin irse a <b>doRmir</b> en paz.</li>
+            <li><b>Prohibido por ley</b> responder con un <em>"dale"</em>, un <em>"a okey"</em> o un <em>"bro mira"</em> cuando el otro se pone tierno y dice <em>"te quiero"</em>.</li>
+            <li><b>Nunca dejéis de picaros</b> como aquel 27 de marzo a las 03:18 de la mañana… pero ahorraos los mensajes de una sola letra por segundo, que el servidor de WhatsApp tiene familia. 🥂💙</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Bottom Navigation Dock -->
+  <nav class="bottom-dock">
+    <button class="dock-btn" id="btn-prev" onclick="showSlide(state.currentSlide - 1)">⬅️ Anterior</button>
+
+    <select class="slide-Jump" id="slide-jump" onchange="showSlide(parseInt(this.value, 10))">
+      <option value="0">1. Gala Inaugural & Ficha</option>
+      <option value="1">2. 🎥 Cine en Vivo (5 Escenas)</option>
+      <option value="2">3. ⏱️ Velocidad y Vistos</option>
+      <option value="3">4. 🌙 Cronobiología (Gráfico 24h)</option>
+      <option value="4">5. ❤️ Termómetro del Cariño</option>
+      <option value="5">6. 🔥 Piropos & Picantómetro</option>
+      <option value="6">7. 📉 La Montaña Rusa Mensual</option>
+      <option value="7">8. 🚩 El Toxicómetro Amistoso</option>
+      <option value="8">9. 🔍 Huella Digital & Risas</option>
+      <option value="9">10. 💣 Expediente X: Bombitas</option>
+      <option value="10">11. 📖 Diccionario RAE "Domir"</option>
+      <option value="11">12. 🎲 Juego 1: Juicio por Jurado</option>
+      <option value="12">13. 🕵️ Juego 2: Trivia a Ciegas</option>
+      <option value="13">14. 🔢 Juego 3: Apuestas Cifras</option>
+      <option value="14">15. ⚡ Si fuera una Película</option>
+      <option value="15">16. 🏆 WhatsApp Gala Awards</option>
+      <option value="16">17. 🎡 Ruleta en Vivo & Final</option>
+    </select>
+
+    <button class="dock-btn" id="btn-next" onclick="showSlide(state.currentSlide + 1)">Siguiente ➡️</button>
+  </nav>
+
+  <script src="app.js"></script>
+</body>
+</html>
